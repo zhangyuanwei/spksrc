@@ -7,18 +7,30 @@ DEPENDS =  cross/busybox cross/$(SPK_NAME)
 
 MAINTAINER = SynoCommunity
 DESCRIPTION = Use Synology NAS as an AirPlay receiver. Requires USB soundcard or speakers.
-RELOAD_UI = no
-STARTABLE = yes
+RELOAD_UI = yes
 DISPLAY_NAME = Shairport Sync
 CHANGELOG = "Use Shairport Sync 3.3.1."
 
 HOMEPAGE = https://github.com/mikebrady/shairport-sync
 LICENSE  =
 
+# WIZARDS_DIR      = src/wizard/
 
-SERVICE_USER = auto
-SERVICE_SETUP = src/service-setup.sh
+# 'auto' reserved value grabs SPK_NAME
+SERVICE_USER         = auto
+# SERVICE_WIZARD_GROUP = wizard_group
+# SERVICE_WIZARD_SHARE = wizard_download_dir
+SERVICE_SETUP        = src/service-setup.sh
+STARTABLE            = yes
 
+# Service configuration
+SERVICE_PORT = 8303
+SERVICE_PORT_TITLE = Shairport Sync Service(AirPlay)
+
+# Admin link
+ADMIN_PORT = $(SERVICE_PORT)
+
+#PRE_COPY_TARGET = demoservice_install
 POST_STRIP_TARGET = shairport_extra_install
 
 BUSYBOX_CONFIG = daemon
